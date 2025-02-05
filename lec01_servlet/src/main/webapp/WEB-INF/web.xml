@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>lec01_servlet</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+  </welcome-file-list>
+  <!-- 여기다가 할거다 -->
+  <servlet>
+  	<servlet-name>mappingType1</servlet-name>
+  	<!-- 연결할 클래스를 패키지부터 쭉 해준다. -->
+  	<servlet-class>com.gn.study.controller.mapping.FileType</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<!-- 별명 뭘로 할건지 설정 / 위랑 같은 이름 써야함 -->
+  	<servlet-name>mappingType1</servlet-name>
+  	<!-- 프론트에서 백엔트 클래스 명을 읽을 수 없으니 주소명으로 한다. file.html의 form 태그의 action이랑 같은 값 -->
+  	<url-pattern>/mapping/file</url-pattern>
+  </servlet-mapping>
+</web-app>
