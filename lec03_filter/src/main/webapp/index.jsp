@@ -21,5 +21,13 @@
 			<input type="submit" value="보내기">
 		</fieldset>
 	</form>
+	<h3>(3) UpperCase(web.xml Wrapper) -> LowerCase(url) 연습문제</h3>
+	<form action="/receive/lower" method="post">
+		<fieldset>
+			<legend>소문자로 만들어줄게~</legend>
+			<textarea rows="3" cols="20" name="sizeDown"></textarea>
+			<button>실행~</button>
+		</fieldset>
+	</form>
 </body>
 </html>
