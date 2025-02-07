@@ -10,6 +10,7 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   
+  <!-- 필터 연습! Upper -->
   <filter>
   	<filter-name>msgUpper</filter-name>
   	<filter-class>com.gn.common.filter.UpperCaseFilter</filter-class>
@@ -19,6 +20,7 @@
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
   
+  <!-- 필터! UTF-8적용, -gn- 붙이기 -->
   <filter>
   	<filter-name>msgFilter</filter-name>
   	<filter-class>com.gn.common.filter.MsgFilter</filter-class>
@@ -27,4 +29,14 @@
   	<filter-name>msgFilter</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  <!-- 리스너! -->
+  <listener>
+  	<listener-class>com.gn.common.listener.AppListener</listener-class>
+  </listener>
+  <!-- 리스너! -->
+  <listener>
+  	<listener-class>com.gn.common.listener.RequestLoggerListener</listener-class>
+  </listener>
+  
 </web-app>
