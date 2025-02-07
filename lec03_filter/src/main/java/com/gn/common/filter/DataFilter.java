@@ -25,6 +25,7 @@ import javax.servlet.http.HttpFilter;
 //	2) /receive/* < receive의 바로 하위만
 //@WebFilter("/receive/*")
 //	3) /receive/** < receive의 하위 전부
+//	근데 이거는 어노테이션방식에서 지원 안 한다던데?
 
 public class DataFilter extends HttpFilter implements Filter {
 
