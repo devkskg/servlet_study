@@ -38,6 +38,7 @@ public class MsgFilter extends HttpFilter implements Filter {
 	}
 
 	public void init(FilterConfig fConfig) throws ServletException {
+		System.out.println("[MsgFilter] init() : 필터 초기화");
 	}
 
 }
