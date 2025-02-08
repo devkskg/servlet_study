@@ -25,7 +25,7 @@
 	<form action="/receive/lower" method="post">
 		<fieldset>
 			<legend>소문자로 만들어줄게~</legend>
-			<textarea rows="3" cols="20" name="sizeDown"></textarea>
+			<textarea rows="3" cols="20" name=sizeLower></textarea>
 			<button>실행~</button>
 		</fieldset>
 	</form>
