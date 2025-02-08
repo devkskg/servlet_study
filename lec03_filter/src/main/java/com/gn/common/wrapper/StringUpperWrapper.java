@@ -12,6 +12,7 @@ public class StringUpperWrapper extends HttpServletRequestWrapper {
 	@Override
 	public String getParameter(String name) {
 //		String upName = name.toUpperCase();
+		System.out.println("!!!UpperWrapper!!!");
 		return super.getParameter(name).toUpperCase();
 	}
 	

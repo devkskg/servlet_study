@@ -12,7 +12,7 @@ public class StringLowerWrapper extends HttpServletRequestWrapper {
 
 	@Override
 	public String getParameter(String name) {
-		
+		System.out.println("!!!LowerWrapper!!!");
 		return super.getParameter(name).toLowerCase();
 	}
 	
