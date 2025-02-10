@@ -24,7 +24,9 @@ public class RemoveCountServlet extends HttpServlet {
 		Cookie c = new Cookie("visit_count","");
 		c.setMaxAge(0);
 		response.addCookie(c);
-		response.sendRedirect("/");
+//		Cookie c2 = new Cookie("visit_count","1");
+//		response.addCookie(c2);
+		response.sendRedirect("/views/countPage.jsp");
 		
 	}
 

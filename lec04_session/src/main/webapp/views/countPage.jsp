@@ -12,13 +12,12 @@
 </head>
 <body>
 	<%
+		/* JSP에서만 해결하려고 하니까 매우 어려움. Servlet에서 복잡한 코드 소화 필요할 듯. */
 		String str = String.valueOf(num++);
 		Cookie c = new Cookie("visit_count", str);
-		if(c.getValue() == null){
-			num = 1;
-		}
 		c.setMaxAge(60*60*24);
 		response.addCookie(c);
+		
 		
 	%>
 	<p>
