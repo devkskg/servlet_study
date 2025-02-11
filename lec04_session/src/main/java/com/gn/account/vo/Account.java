@@ -4,19 +4,19 @@ public class Account {
 	private int accountNo;
 	private String accountId;
 	private String accountPw;
-	private String rememberAccount;
+	private String accountName;
 	
 	public Account() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	public Account(int accountNo, String accountId, String accountPw, String rememberAccount) {
+
+	public Account(int accountNo, String accountId, String accountPw, String accountName) {
 		super();
 		this.accountNo = accountNo;
 		this.accountId = accountId;
 		this.accountPw = accountPw;
-		this.rememberAccount = rememberAccount;
+		this.accountName = accountName;
 	}
 
 	public int getAccountNo() {
@@ -43,19 +43,21 @@ public class Account {
 		this.accountPw = accountPw;
 	}
 
-	public String getRememberAccount() {
-		return rememberAccount;
+	public String getAccountName() {
+		return accountName;
 	}
 
-	public void setRememberAccount(String rememberAccount) {
-		this.rememberAccount = rememberAccount;
+	public void setAccountName(String accountName) {
+		this.accountName = accountName;
 	}
 
 	@Override
 	public String toString() {
-		return "Account [accountNo=" + accountNo + ", accountId=" + accountId + ", accountPw=" + accountPw
-				+ ", rememberAccount=" + rememberAccount + "]";
+		return "[번호=" + accountNo + ", 아이디=" + accountId + ", 비밀번호=" + accountPw
+				+ ", 이름=" + accountName + "]";
 	}
+	
+	
 	
 	
 	

@@ -65,7 +65,7 @@
 	<%if(session.isNew() || session.getAttribute("account") == null){%>
 		<a href="/login">로그인</a>
 	<%} else{%>
-		로그인한 사용자 정보 출력
+		<a href="/logout">로그 아웃</a>
 	<%} %>
 	
 	
