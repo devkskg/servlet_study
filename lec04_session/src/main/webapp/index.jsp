@@ -61,6 +61,8 @@
 		</li>
 	</ol>
 	
+	
+	
 	<!-- 다이나믹 페이지 만든거다 -> 사용자 로그인 여부에 따라 다른 화면 -->
 	<%if(session.isNew() || session.getAttribute("account") == null){%>
 		<a href="/login">로그인</a>
