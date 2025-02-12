@@ -26,6 +26,7 @@ public class ChangePageServlet extends HttpServlet {
 //		이거는 원래 쓰던거. / 슬래시 쓰고 써야한다.
 //		= request.getRequestDispatcher("/views/countPage.jsp");
 //		아래는 새로운 거. 서블릿에 들어있는 메소드. 절대 경로를 찾아줌.
+//		절대 경로를 찾아줌.절대 경로를 찾아줌.절대 경로를 찾아줌.절대 경로를 찾아줌.절대 경로를 찾아줌.절대 경로를 찾아줌.
 //		앞에 / 슬래시 써야하는 건 똑같지만 위에거는 슬래시 없는 경로로 가지지만 아래거는 오류가 뜬다.
 		= getServletContext().getRequestDispatcher("/views/countPage2.jsp");
 		view.forward(request, response);
