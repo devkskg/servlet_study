@@ -1,6 +1,8 @@
 package com.gn.member.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -33,11 +35,13 @@ public class MemberCreateEndServlet extends HttpServlet {
 		
 //		Service에 데이터 전달
 		int result = new MemberService().createMember(mem);
+//		RequestDispatcher 를 일단 실패했다고 가정하고 성공하면 view의 방향(url)을 바꿔준다.
+		RequestDispatcher view = request.getRequestDispatcher("/views/member/create_fail.jsp");
 		if(result > 0) {
-			System.out.println("업데이트 완료");
-		} else {
-			System.out.println("실패~");
+//			System.out.println("업데이트 완료");
+			view = request.getRequestDispatcher("/views/member/create_success.jsp");
 		}
+		view.forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

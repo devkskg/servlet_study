@@ -2,7 +2,7 @@ package com.gn.member.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import static com.gn.common.sql.JDBCTemplate.close;
 
 import com.gn.member.vo.Member;
 
@@ -25,12 +25,7 @@ public class MemberDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-				try {
-					if(pstmt != null) pstmt.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+			close(pstmt);
 		}
 		return result;
 	}
