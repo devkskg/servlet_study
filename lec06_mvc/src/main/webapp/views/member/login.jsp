@@ -40,6 +40,7 @@ rel="stylesheet" type="text/css">
 				form.member_pw.focus();
 			} else {
 				form.submit();
+				// $.ajax({})
 			}
 		}
 	</script>

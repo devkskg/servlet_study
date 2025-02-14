@@ -44,11 +44,11 @@ public class MemberDao {
 			pstmt.setString(2, pw);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				m = new Member();
-				m.setMemberNo(rs.getInt("member_no"));
-				m.setMemberId(rs.getString("member_id"));
-				m.setMemberPw(rs.getString("member_pw"));
-				m.setMemberName(rs.getString("member_name"));
+				m = new Member(rs.getInt("member_no"), rs.getString("member_id"), rs.getString("member_pw"), rs.getString("member_name"));
+//				m.setMemberNo(rs.getInt("member_no"));
+//				m.setMemberId(rs.getString("member_id"));
+//				m.setMemberPw(rs.getString("member_pw"));
+//				m.setMemberName(rs.getString("member_name"));
 			}
 			
 		} catch (Exception e) {
@@ -58,5 +58,24 @@ public class MemberDao {
 			close(pstmt);
 		}
 		return m;
+	}
+
+	public int updateUserInfo(Connection conn, String name, String pw, String no) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		try {
+			String sql = "update member set member_name = ?, member_pw = ? where member_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, name);
+			pstmt.setString(2, pw);
+			pstmt.setString(3, no);
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
 	}
 }

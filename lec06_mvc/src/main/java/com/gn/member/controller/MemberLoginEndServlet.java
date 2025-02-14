@@ -2,11 +2,13 @@ package com.gn.member.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.gn.member.service.MemberService;
 import com.gn.member.vo.Member;
@@ -29,7 +31,21 @@ public class MemberLoginEndServlet extends HttpServlet {
 //		System.out.println("비번" + pw);
 		// 3. 전달받은 아이디와 비밀번호가 일치하는 회원 정보 조회(번호, 아이디, 비번, 이름) 조회
 		Member m = new MemberService().loginMember(id,pw);
-		System.out.println(m);
+//		System.out.println(m);
+//		RequestDispatcher view = null;
+		if(m != null) {
+			HttpSession session = request.getSession();
+			if(session.isNew() || session.getAttribute("member") == null) {
+				session.setAttribute("member", m);
+				session.setMaxInactiveInterval(60*30);
+			}
+			response.sendRedirect("/");
+		} else {
+			RequestDispatcher view = request.getRequestDispatcher("/views/member/login_fail.jsp");
+			view.forward(request, response);
+		}
+		// 위에 view=null 해뒀는데 null일때 forward진행되면 어케 되는겨?
+//		view.forward(request, response);
 		
 	}
 

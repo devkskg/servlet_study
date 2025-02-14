@@ -28,4 +28,10 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+	public int updateUserInfo(String name, String pw, String no) {
+		Connection conn = getConnection();
+		int result = md.updateUserInfo(conn, name, pw, no);
+		close(conn);
+		return result;
+	}
 }
