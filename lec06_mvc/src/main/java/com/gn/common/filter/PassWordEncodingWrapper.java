@@ -18,9 +18,9 @@ public class PassWordEncodingWrapper extends HttpServletRequestWrapper {
 		// ??member_pw_check 도 같이 wrapper 해버리기 위해 equals 말고 contains 쓴 거다.??
 		if(name.contains("member_pw")) {
 			String ori = super.getParameter(name);
-			System.out.println("암호화 전 : " + ori);
+//			System.out.println("암호화 전 : " + ori);
 			String enc = getSHA512(ori);
-			System.out.println("암호화 후 : " + enc);
+//			System.out.println("암호화 후 : " + enc);
 			return enc;
 		}
 		return super.getParameter(name);

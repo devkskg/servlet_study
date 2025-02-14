@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>회원가입 페이지</title>
 <link href="<%=request.getContextPath()%>/resources/css/member/create.css" rel="stylesheet" type="text/css">
+<script src="/resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
 	<%@ include file="../include/header.jsp" %>
@@ -34,7 +35,7 @@
 				</form>
 			</div>
 			<div class="login">
-				<a href="#">로그인</a>
+				<a href="/memberLogin">로그인</a>
 			</div>
 		</div>
 	</section>
@@ -62,7 +63,36 @@
 				alert("이름을 입력하세요.")
 				form.member_name.focus();
 			} else{
-				form.submit();
+				// 25-02-13 어제는 그냥 submit으로 했다면 25-02-14 오늘은 ajax로 해보자
+				// form.submit();
+				
+				// data : ajax 통신을 할 때 필요한 정보 중 요청을 보낼 때 서블릿에게 전달하는 정보 데이터
+				// dataType : 이거는 데이터가 갔다 올 때 어느 타입으로 오는 지 설정
+				// success의 data : 서블릿이 응답 해줄때 받아온 데이터
+				$.ajax({
+					url : "/memberCreateEnd",
+					type : "post",
+					data : {"member_id" : form.member_id.value,
+						"member_pw" : form.member_pw.value,
+						"member_name" : form.member_name.value},
+					dataType : "JSON",
+					contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+					success : function(data){
+						// console.log(data);
+						// res_msg를 alert창에 출력
+						// 만약에 res_code가 200과 같다면
+						// / 경로로 이동(location)
+						alert(data.res_code)
+						if(data.res_code == "200"){
+							location.href="/views/member/create_success.jsp";
+						} else{
+							location.href="/views/member/create_fail.jsp";
+						}
+						/* else if(data.res_code == "500"){
+							location.href="/sdfsdfsdf";
+						} */
+					}
+				});
 			}
 		}
 	</script>

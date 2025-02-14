@@ -13,6 +13,7 @@ public class JDBCTemplate {
 		Connection conn = null;
 		Properties prop = new Properties();
 		try {
+			// ??Dynamic Web Project는 이런 메소드로 적어야 한다??
 			String path = JDBCTemplate.class.getResource("driver.properties").getPath();
 //			prop.load(new FileInputStream("driver.properties"));
 			prop.load(new FileInputStream(path));

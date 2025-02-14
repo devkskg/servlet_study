@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * Servlet Filter implementation class EncryptFilter
  */
-@WebFilter(servletNames = "memberCreateEndServlet")
+@WebFilter(servletNames = {"memberCreateEndServlet", "memberLoginEndServlet"})
 public class EncryptFilter extends HttpFilter implements Filter {
        
 	private static final long serialVersionUID = 1L;

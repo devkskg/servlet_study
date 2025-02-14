@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>홈</title>
+<link href='<%=request.getContextPath()%>/resources/css/index.css' rel="stylesheet" type="text/css">
 </head>
 <body>
 	<!-- <header> <nav> <section>섹션은 어떤 정보를 담고있냐 이런 모양이 반복 될때 include 태그를 사용하자?-->
