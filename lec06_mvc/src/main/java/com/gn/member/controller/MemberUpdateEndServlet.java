@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.simple.JSONObject;
 
 import com.gn.member.service.MemberService;
+import com.gn.member.vo.Member;
 
 @WebServlet(name="memberUpdateEndServlet",urlPatterns = "/memberUpdateEnd")
 public class MemberUpdateEndServlet extends HttpServlet {
@@ -25,11 +26,14 @@ public class MemberUpdateEndServlet extends HttpServlet {
 		String no = request.getParameter("member_no");
 		
 		int result = new MemberService().updateUserInfo(name, pw, no);
+		Member searchMemberByMemberNo = new MemberService().searchMemberByMemberNo(no);
 		
 		JSONObject obj = new JSONObject();
 		obj.put("res_code", "500");
 		obj.put("res_msg", "회원 정보 수정 중 오류가 발생했습니다.");
 		if(result > 0) {
+			
+			
 			obj.put("res_code", "200");
 			obj.put("res_msg", "회원 정보 수정이 완료되었습니다.");
 		}

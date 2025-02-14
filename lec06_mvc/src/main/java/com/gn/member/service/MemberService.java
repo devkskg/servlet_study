@@ -34,4 +34,10 @@ public class MemberService {
 		close(conn);
 		return result;
 	}
+	public Member searchMemberByMemberNo(String no) {
+		Connection conn = getConnection();
+		Member result = md.searchMemberByMemberNo(conn, no);
+		close(conn);
+		return result;
+	}
 }

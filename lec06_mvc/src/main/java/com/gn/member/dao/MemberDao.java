@@ -78,4 +78,27 @@ public class MemberDao {
 
 		return result;
 	}
+
+	public Member searchMemberByMemberNo(Connection conn, String no) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Member m = null;
+		
+		try {
+			String sql = "select * from member where member_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, no);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				m = new Member(rs.getInt("member_no"), rs.getString("member_id"), rs.getString("member_pw"), rs.getString("member_name"));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return m;
+	}
 }
