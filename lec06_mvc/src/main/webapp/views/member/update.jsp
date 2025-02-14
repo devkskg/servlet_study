@@ -23,7 +23,8 @@
 				<form action='/memberUpdateEnd' name="update_member_form" method="post">
 					<input type="hidden" name="member_no" value="<%=m.getMemberNo()%>">
 					<!-- disabled 쓰면 데이터가 백엔드 뒤로 가지 않는다. + 사용자가 못 쓰는 칸 -->
-					<input type="text" name="member_id" value="<%=m.getMemberId()%>" readonly disabled> <br>
+					<input type="text" name="member_name_view" value="현재 아이디 : <%=m.getMemberId()%>" readonly disabled> <br>
+					<input type="text" name="member_id" value="현재 닉네임 : <%=m.getMemberName()%>" readonly disabled> <br>
 					<input type="password" name="member_pw" placeholder="수정 비밀번호"> <br>
 					<input type="password" name="member_pw_check" placeholder="수정 비밀번호 확인"> <br>
 					<input type="text" name="member_name" value="" placeholder="닉네임"> <br>

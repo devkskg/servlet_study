@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 
@@ -20,6 +21,7 @@ public class MemberUpdateEndServlet extends HttpServlet {
         super();
     }
 
+	@SuppressWarnings({ "unchecked", "unchecked" })
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("member_name");
 		String pw = request.getParameter("member_pw");
@@ -32,7 +34,9 @@ public class MemberUpdateEndServlet extends HttpServlet {
 		obj.put("res_code", "500");
 		obj.put("res_msg", "회원 정보 수정 중 오류가 발생했습니다.");
 		if(result > 0) {
-			
+			HttpSession session = request.getSession();
+			session.setAttribute("member", searchMemberByMemberNo);
+			session.setMaxInactiveInterval(60*30);
 			
 			obj.put("res_code", "200");
 			obj.put("res_msg", "회원 정보 수정이 완료되었습니다.");
