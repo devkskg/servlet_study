@@ -21,21 +21,21 @@ public class MemberUpdateEndServlet extends HttpServlet {
         super();
     }
 
-	@SuppressWarnings({ "unchecked", "unchecked" })
+	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("member_name");
 		String pw = request.getParameter("member_pw");
 		String no = request.getParameter("member_no");
 		
 		int result = new MemberService().updateUserInfo(name, pw, no);
-		Member searchMemberByMemberNo = new MemberService().searchMemberByMemberNo(no);
+		Member fixMemberInfoByNo = new MemberService().fixMemberInfoByNo(no);
 		
 		JSONObject obj = new JSONObject();
 		obj.put("res_code", "500");
 		obj.put("res_msg", "회원 정보 수정 중 오류가 발생했습니다.");
 		if(result > 0) {
 			HttpSession session = request.getSession();
-			session.setAttribute("member", searchMemberByMemberNo);
+			session.setAttribute("member", fixMemberInfoByNo);
 			session.setMaxInactiveInterval(60*30);
 			
 			obj.put("res_code", "200");

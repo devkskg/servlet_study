@@ -79,7 +79,7 @@ public class MemberDao {
 		return result;
 	}
 
-	public Member searchMemberByMemberNo(Connection conn, String no) {
+	public Member fixMemberInfoByNo(Connection conn, String no) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		Member m = null;
