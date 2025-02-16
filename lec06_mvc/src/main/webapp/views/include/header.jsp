@@ -8,7 +8,7 @@
 	<div id="header_wrap">
 		<div class="title">	
 			<h3>
-				<a class="user" href="/">MVC 프로젝트</a>
+				<a class="user" href="/">MVC 프로젝트!!</a>
 			</h3>
 		</div>
 	</div>
