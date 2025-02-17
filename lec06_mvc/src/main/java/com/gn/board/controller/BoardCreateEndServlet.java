@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.json.simple.JSONObject;
 
 import com.gn.board.service.BoardService;
 import com.gn.board.vo.Attach;
@@ -105,11 +105,31 @@ public class BoardCreateEndServlet extends HttpServlet {
 			int result = new BoardService().createBoard(b,a);
 			// dao 에 게시글 인서트 -> 게시글의 PK를 같이 넣어서 첨부파일 인서트
 			
-			RequestDispatcher view = request.getRequestDispatcher("/views/board/create_fail.jsp");
+			
+			
+			// RequestDispatcher view = request.getRequestDispatcher("/views/board/create_fail.jsp");
+			JSONObject obj = new JSONObject();
 			if(result > 0) {
-				view = request.getRequestDispatcher("/views/board/create_success.jsp");
+				// view = request.getRequestDispatcher("/views/board/create_success.jsp");
+				obj.put("res_code", "200");
+				obj.put("res_msg", "정상적으로 게시글 등록되었습니다.");
+			} else {
+				//  파일 업로드 된 것을 지워주는 작업(DB에 저장 실패했지만 파일 업로드만 된 애들!)
+				obj.put("res_code", "500");
+				obj.put("res_msg", "게시글 등록 중 오류가 발생하였습니다.");
+				String deletePath = a.getAttachPath();
+				File deleteFile = new File(deletePath);
+				if(deleteFile.exists()) {
+					if(deleteFile.delete()) {
+						System.out.println("삭제완료");
+					}
+				}
 			}
-			view.forward(request, response);
+			// view.forward(request, response);
+			response.setContentType("application/json; charset=utf-8");
+			response.getWriter().print(obj);
+			
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

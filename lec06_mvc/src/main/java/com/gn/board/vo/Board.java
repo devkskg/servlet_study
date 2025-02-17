@@ -1,6 +1,7 @@
 package com.gn.board.vo;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Board {
 //	1번 바구니
@@ -10,9 +11,16 @@ public class Board {
 	private int boardWriter;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
+	private String memberName;
+	
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
 	public Board() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public Board(int boardNo, String boardTitle, String boardContent, int boardWriter, LocalDateTime regDate,
 			LocalDateTime modDate) {
@@ -48,8 +56,9 @@ public class Board {
 	public void setBoardWriter(int boardWriter) {
 		this.boardWriter = boardWriter;
 	}
-	public LocalDateTime getRegDate() {
-		return regDate;
+	public String getRegDate() {
+		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy년MM월dd일 HH:mm:SS");
+		return dtf.format(regDate);
 	}
 	public void setRegDate(LocalDateTime regDate) {
 		this.regDate = regDate;
@@ -62,8 +71,8 @@ public class Board {
 	}
 	@Override
 	public String toString() {
-		return "Board [boardNo=" + boardNo + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", boardWriter=" + boardWriter + ", regDate=" + regDate + ", modDate=" + modDate + "]";
+		return "[게시글 번호=" + boardNo + ", 제목=" + boardTitle + ", 내용=" + boardContent
+				+ ", 닉네임=" + memberName + ", 등록일=" + regDate + ", 수정일=" + modDate + "]";
 	}
 	
 	

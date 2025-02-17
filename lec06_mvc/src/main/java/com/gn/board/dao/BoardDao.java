@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.gn.board.vo.Attach;
 import com.gn.board.vo.Board;
@@ -71,5 +73,49 @@ public class BoardDao {
 			close(pstmt);
 		}
 		return attachNo;
+	}
+
+	public List<Board> selectBoardList(Connection conn) {
+		// 게시글 번호(board_no)
+		// 게시글 제목(board_title)
+		// 게시글 내용(board_content)
+		// 게시글 작성자의 닉네임(member 테이블 member_name) - 방법 : vo필드확장
+		// 게시글 등록일(reg_date)
+		// 게시글 수정일(mod_date)
+		List<Board> resultList = new ArrayList<Board>();
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+			String sql = "select b.*, m.member_name from board b join member m on b.board_writer = m.member_no";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			
+			
+			while(rs.next()) {
+				Board b = new Board();
+				b.setBoardNo(rs.getInt("board_no"));
+				b.setBoardTitle(rs.getString("board_title"));
+				b.setBoardContent(rs.getString("board_content"));
+				b.setBoardWriter(rs.getInt("board_writer"));
+				b.setRegDate(rs.getTimestamp("reg_date").toLocalDateTime());
+				b.setModDate(rs.getTimestamp("mod_date").toLocalDateTime());
+				b.setMemberName(rs.getString("member_name"));
+				
+				resultList.add(b);
+				
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		
+		
+		return resultList;
 	}
 }

@@ -22,6 +22,9 @@
 					<li>
 						<a href="/memberCreate">회원가입</a>
 					</li>
+					<li>
+						<a href="/boardList">게시판</a>
+					</li>
 				<%} else {%>
 					<li>
 						<a href="/boardCreate">게시물 등록</a>

@@ -1,11 +1,13 @@
 package com.gn.board.service;
 
 import static com.gn.common.sql.JDBCTemplate.close;
+import static com.gn.common.sql.JDBCTemplate.commit;
 import static com.gn.common.sql.JDBCTemplate.getConnection;
 import static com.gn.common.sql.JDBCTemplate.rollback;
-import static com.gn.common.sql.JDBCTemplate.commit;
 
 import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.gn.board.dao.BoardDao;
 import com.gn.board.vo.Attach;
@@ -36,9 +38,6 @@ public class BoardService {
 				rollback(conn);
 			}
 			
-			
-			
-			
 //			conn.setAutoCommit(true); - commit 또는 rollback 작동하면 autocommit(true) 자동으로 돌아온다.
 		} catch (Exception e) {
 			rollback(conn);
@@ -47,5 +46,13 @@ public class BoardService {
 		}
 		close(conn);
 		return result;
+	}
+
+	public List<Board> selectBoardList() {
+		Connection conn = getConnection();
+		List<Board> resultList = new ArrayList<Board>(); 
+		resultList = new BoardDao().selectBoardList(conn);
+		close(conn);
+		return resultList;
 	}
 }

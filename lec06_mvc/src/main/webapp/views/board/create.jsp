@@ -7,6 +7,7 @@
 <title>게시글 등록</title>
 <link href='<%=request.getContextPath()%>/resources/css/board/create.css' 
 rel="stylesheet" type="text/css">
+<script src="<%=request.getContextPath()%>/resources/js/jquery-3.7.1.js"></script>
 </head>
 <body>
 	<%@ include file="/views/include/header.jsp" %>
@@ -56,8 +57,35 @@ rel="stylesheet" type="text/css">
 				const idx = val.lastIndexOf('.');
 				const type = val.substring(idx + 1, val.length);
 				if(type == 'jpg' || type == 'png' || type == 'jpeg'){
-					form.submit();
+					// form.submit();
 					// console.log(val);
+					// input type=file 태그 있을 경우 ajax 조금 다르게 해줘야함
+					const sendData = new FormData(form);
+					$.ajax({
+						url : '/boardCreateEnd',
+						type : 'post',
+						// 캐시(브라우저에 지나간 흔적 남는 것, 고의로 흘리지 않아도 남음)
+						// enctype, cache, async 얘네 모두 짝꿍이다. file 할때는 동기 방식으로 해야한다. 
+						// 파일을 해체할 수 없어서? 기본적인 방식으로 해야한다? 우리 단계에서는 동기 방식으로 하는 것이 맞다.
+						// processType(데이터 잘라서 넘기기), contentType - post 방식으더라도 이걸 false로 바꿔줘야한다.
+						
+						// 괄호 안의 form은 위에 선언한 변수 let form이다.
+						enctype : 'multipart/form-data',
+						cache : false,
+						async : false,
+						contentType : false,
+						processData : false,
+						// FormData 는 매개변수의 값을 키:밸류 형식으로 감싸는 객체
+						data : sendData,
+						dataType : 'JSON',
+						success : function(data){
+							alert(data.res_msg);
+							if(data.res_code == 200){
+								location.href = "/boardList";
+							}
+						}
+						
+					})
 				} else{
 					alert('이미지 파일만 선택할 수 있습니다.');
 					form.board_file.value = '';
