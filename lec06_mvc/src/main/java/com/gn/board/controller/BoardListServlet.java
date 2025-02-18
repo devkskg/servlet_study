@@ -22,8 +22,28 @@ public class BoardListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Board> resultList = new BoardService().selectBoardList();
-		System.out.println(resultList);
+//		List<Board> resultList = new BoardService().selectBoardList();
+//		System.out.println(resultList);
+//		
+//		RequestDispatcher view = request.getRequestDispatcher("/views/board/list.jsp");
+//		request.setAttribute("ResultOfList", resultList);
+//		view.forward(request, response);
+		// 위에는 검색기능 없는 상태 / 이전 수업 내용
+		// 위에는 검색기능 없는 상태 / 이전 수업 내용
+		// 위에는 검색기능 없는 상태 / 이전 수업 내용
+		
+		// 검색 기능 넣는 수업 시작
+		// 검색 기능 넣는 수업 시작
+		// 검색 기능 넣는 수업 시작
+		String boardTitle = request.getParameter("board_title");
+		
+		// 바구니 하나 만들어서 검색 타이틀 담자.
+		Board option = new Board();
+		option.setBoardTitle(boardTitle);
+		
+		
+		List<Board> resultList = new BoardService().selectBoardList(option);
+//		System.out.println(resultList);
 		
 		RequestDispatcher view = request.getRequestDispatcher("/views/board/list.jsp");
 		request.setAttribute("ResultOfList", resultList);

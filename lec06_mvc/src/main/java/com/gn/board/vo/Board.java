@@ -56,13 +56,23 @@ public class Board {
 	public void setBoardWriter(int boardWriter) {
 		this.boardWriter = boardWriter;
 	}
-	public String getRegDate() {
-		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy년MM월dd일 HH:mm:SS");
-		return dtf.format(regDate);
-	}
+
+	
 	public void setRegDate(LocalDateTime regDate) {
 		this.regDate = regDate;
 	}
+	
+	
+//	public String getRegDate() {
+//	DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy년MM월dd일 HH:mm:SS");
+//	return dtf.format(regDate);
+//}
+	public LocalDateTime getRegDate() {
+		return regDate;
+	}
+	
+	
+	
 	public LocalDateTime getModDate() {
 		return modDate;
 	}

@@ -55,13 +55,14 @@ public class BoardDao {
 		int attachNo = 0;
 		try {
 			String sql = "insert into `attach`(board_no, ori_name, new_name, attach_path) values(?,?,?,?)";
+			// 1. prepareStatement 할당문에 매개변수 추가.
 			pstmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			pstmt.setInt(1, a.getBoardNo());
 			pstmt.setString(2, a.getOriName());
 			pstmt.setString(3, a.getNewName());
 			pstmt.setString(4, a.getAttachPath());
 			attachNo = pstmt.executeUpdate();
-			
+			// 2. 쿼리 실행 후 생성된 키 반환
 			rs = pstmt.getGeneratedKeys();
 			if(rs.next()) {
 				attachNo = rs.getInt(1);
@@ -75,7 +76,7 @@ public class BoardDao {
 		return attachNo;
 	}
 
-	public List<Board> selectBoardList(Connection conn) {
+	public List<Board> selectBoardList(Connection conn, Board option) {
 		// 게시글 번호(board_no)
 		// 게시글 제목(board_title)
 		// 게시글 내용(board_content)
@@ -87,7 +88,13 @@ public class BoardDao {
 		ResultSet rs = null;
 		
 		try {
-			String sql = "select b.*, m.member_name from board b join member m on b.board_writer = m.member_no";
+			String sql = "select b.*, m.member_name from board b join member m on b.board_writer = m.member_no ";
+			if(option.getBoardTitle() != null) {
+				// 검색을 했다면~ if문으로 들어온다.
+				sql += "where b.board_title like concat('%','"+option.getBoardTitle()+"','%')";
+				
+			}
+			
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			

@@ -10,6 +10,9 @@
 	<div id="nav_wrap">
 		<div class="menu">
 			<ul>
+					<li>
+						<a href="/boardList">게시판</a>
+					</li>
 				<%if(m == null){ %>
 					<li>
 						<a href="/memberLogin">로그인</a>
@@ -21,9 +24,6 @@
 					 -->
 					<li>
 						<a href="/memberCreate">회원가입</a>
-					</li>
-					<li>
-						<a href="/boardList">게시판</a>
 					</li>
 				<%} else {%>
 					<li>
