@@ -3,7 +3,10 @@ package com.gn.board.vo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Board {
+import com.gn.common.vo.Paging;
+
+// 페이징 상속 받은 것!!
+public class Board extends Paging{
 //	1번 바구니
 	private int boardNo;
 	private String boardTitle;
@@ -12,7 +15,14 @@ public class Board {
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
 	private String memberName;
+	private String newName;
 	
+	public String getNewName() {
+		return newName;
+	}
+	public void setNewName(String newName) {
+		this.newName = newName;
+	}
 	public String getMemberName() {
 		return memberName;
 	}

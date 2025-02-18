@@ -37,7 +37,7 @@ public class MemberLoginEndServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			if(session.isNew() || session.getAttribute("member") == null) {
 				session.setAttribute("member", m);
-				session.setMaxInactiveInterval(5);
+				session.setMaxInactiveInterval(60*30);
 			}
 			response.sendRedirect("/");
 		} else {
