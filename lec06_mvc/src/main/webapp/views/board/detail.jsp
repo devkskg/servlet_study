@@ -40,11 +40,11 @@
 						<table>
 							<tr>
 								<td>제목</td>
-								<td><%=board.getBoardTitle() %></td>
+								<td>${boardYo.boardTitle}</td>
 							</tr>
 							<tr>
 								<td>내용</td>
-								<td><%=board.getBoardContent() %></td>
+								<td>${boardYo.boardContent}</td>
 							</tr>
 							<tr>
 								<td>작성자</td>
