@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <!-- (1.2.5JSTL 코어 불러오는 방법! 버전 다르면 docs 보고 맞는 taglib 써야함!)
  라이브러리 안의 코드를 가지고 오는 방법 -->
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html>
 <head>
