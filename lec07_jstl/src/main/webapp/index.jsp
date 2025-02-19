@@ -81,6 +81,7 @@
 		list2.add("저는 핫팩이 있어요.");
 		request.setAttribute("list2", list2);
 	%>
+		${list2}
 	<h3>1. 산술 연산</h3>
 	<p>
 		10 + 3 = ${num1+num2 }<br>
