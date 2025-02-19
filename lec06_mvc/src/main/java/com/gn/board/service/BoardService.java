@@ -70,4 +70,12 @@ public class BoardService {
 		Board board = new BoardDao().selectBoardOne(conn, boardNo);
 		return board;
 	}
+	
+//	File 조회하기 위한 메소드 만들기
+	public Attach selectAttachOne(int attachNo) {
+		Connection conn = getConnection();
+		Attach a = new BoardDao().selectAttachOne(conn, attachNo);
+		close(conn);
+		return a;
+	}
 }

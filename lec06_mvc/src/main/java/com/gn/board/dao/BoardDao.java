@@ -75,7 +75,7 @@ public class BoardDao {
 		}
 		return attachNo;
 	}
-
+	// 검색어 입력, 미입력 둘 다 받아서 List에 담아오는 방법.
 	public List<Board> selectBoardList(Connection conn, Board option) {
 		// 게시글 번호(board_no)
 		// 게시글 제목(board_title)
@@ -128,7 +128,7 @@ public class BoardDao {
 		
 		return resultList;
 	}
-	
+	// 현재 option에 해당하는 개수 조회
 	public int selectBoardCount(Connection conn, Board option) {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -160,7 +160,7 @@ public class BoardDao {
 		ResultSet rs = null;
 		Board board = null;
 		try {
-			String sql = "select b.*, m.member_name, a.new_name "
+			String sql = "select b.*, m.member_name, a.attach_no "
 					+ "from `board` b "
 					+ "join `member` m on b.board_writer = m.member_no "
 					+ "join `attach` a on b.board_no = a.board_no  "
@@ -177,7 +177,7 @@ public class BoardDao {
 				board.setRegDate(rs.getTimestamp("reg_date").toLocalDateTime());
 				board.setModDate(rs.getTimestamp("mod_date").toLocalDateTime());
 				board.setMemberName(rs.getString("member_name"));
-				board.setNewName(rs.getString("new_name"));
+				board.setAttachNo(rs.getInt("attach_no"));
 				
 			}
 			
@@ -189,5 +189,34 @@ public class BoardDao {
 		}
 		
 		return board;
+	}
+	
+//	File 조회하기 위한 메소드 만들기
+	public Attach selectAttachOne(Connection conn, int attachNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		Attach a = null;
+		try {
+			String sql = "select * from attach where attach_no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, attachNo);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				a = new Attach();
+				a.setAttachNo(rs.getInt("attach_no"));
+				a.setBoardNo(rs.getInt("board_no"));
+				a.setOriName(rs.getString("ori_name"));
+				a.setNewName(rs.getString("new_name"));
+				a.setAttachPath(rs.getString("attach_path"));
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			close(rs);
+			close(pstmt);
+		}
+		return a;
 	}
 }

@@ -20,10 +20,18 @@
 			<div class="board_detail">
 				<ul>
 					<li>
-						<%System.out.println("C:\\upload\\board\\" + board.getNewName()); %>
+						<!-- newName 말고 attachNo 쓸거다!! -->
+						<!-- newName 말고 attachNo 쓸거다!! -->
+						<!-- newName 말고 attachNo 쓸거다!! -->
+						<%-- <%System.out.println("C:\\upload\\board\\" + board.getNewName()); %> --%>
 						<!-- 왜 바로 쓰는 게 안되냐? -> 브라우저의 보안정책(same-origin-policy) 때문 -->
 						<%-- <img src="C:\\upload\\board\\<%=board.getNewName()%>"> --%>
-						<img src="C:\\upload\\board\\b11eaa275be343c88fb1f6206df07ebd.png">
+						<!-- UUID가 길어서 + 이름에 . 들어가있어서 url에 적용 안 될수도있다. -->
+						<%-- <img src="<%=request.getContextPath()%>/filePath?new_name=<%=board.getNewName()%>"> --%>
+						<!-- newName 말고 attachNo 쓸거다!! -->
+						<!-- newName 말고 attachNo 쓸거다!! -->
+						<!-- newName 말고 attachNo 쓸거다!! -->
+						<img src="<%=request.getContextPath()%>/filePath?attach_no123=<%=board.getAttachNo()%>">
 						<br>
 						<span></span>
 					</li>
