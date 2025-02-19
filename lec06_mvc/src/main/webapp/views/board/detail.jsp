@@ -33,7 +33,8 @@
 						<!-- newName 말고 attachNo 쓸거다!! -->
 						<img src="<%=request.getContextPath()%>/filePath?attach_no123=<%=board.getAttachNo()%>">
 						<br>
-						<span></span>
+						<!-- 위에는 이미지 보여주기, 아래 a태그는 다운로드 받을 수 있도록 -->
+						<a href="<%=request.getContextPath()%>/fileDownload?attach_no321=<%=board.getAttachNo()%>">파일 다운로드</a>
 					</li>
 					<li>
 						<table>

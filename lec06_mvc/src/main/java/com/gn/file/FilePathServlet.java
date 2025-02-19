@@ -55,11 +55,13 @@ public class FilePathServlet extends HttpServlet {
 		response.setContentType(mimeType);
 		
 		// 5. 파일을 읽어서(In), 클라이언트 전송(Out) / 업로드에 있는 파일을 자바로 끌고와서 클라이언트 쪽으로 전송
+		// 왜 FileOutputStream 안쓰는 가? -> response가 getOutputStream 밖에 없어서.. 부모 클래스인 OutputStream 쓰는 것이다..
 		try(FileInputStream fis = new FileInputStream(file); OutputStream out = response.getOutputStream();) {
-			byte[] buffer = new byte[1024]; // 1kb씩 가지고 올거다.
+			byte[] buffer = new byte[1024]; // 1kb씩 가지고 올거다. 바가지!
 			int byteRead;
-			
+			// -1이 아니면 계속 읽고 -1이면(다 읽어서 더 읽어올 게 없으면) 중단.
 			while((byteRead = fis.read(buffer)) != -1) {
+				// byteRead가 품고 있는 애를 output 해준다는 느낌?
 				out.write(buffer, 0, byteRead);
 			}
 		} catch (Exception e) {
