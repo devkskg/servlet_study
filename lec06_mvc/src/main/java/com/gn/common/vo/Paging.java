@@ -6,7 +6,7 @@ public class Paging {
 	// 전체 페이지 개수
 	private int totalPage;
 	// 한 페이지당 게시글의 개수
-	private int numPerPage = 5;
+	private int numPerPage = 2;
 	// LIMIT 쿼리 앞쪽 숫자(몇개 스킵할건지)
 	private int limitPageNo;
 	// 현재 페이지 번호

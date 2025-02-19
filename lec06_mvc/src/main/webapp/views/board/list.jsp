@@ -68,47 +68,72 @@
 						<!-- 아래는 강사님 풀이 -->
 						<%	
 							List<Board> list2 = (List<Board>)request.getAttribute("ResultOfList");
-							DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM-dd a hh:mm");
-							for(int i = 0; i < list.size(); i++){ %>
+							DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM-dd a hh:mm"); %>
+							<%-- <% for(int i = 0; i < list.size(); i++){ %>
 								<!-- 눌렀을 때 상세보기! 커스텀 데이터 속성! -->
 								<tr data-board-no="<%=list.get(i).getBoardNo()%>">
-									<%-- <td><%=list.get(i).getBoardNo() %></td> --%>
+									<td><%=list.get(i).getBoardNo() %></td>
 									<td><%=(paging.getNowPage()-1)*paging.getNumPerPage()+(i+1) %></td>
 									<td><%=list.get(i).getBoardTitle() %></td>
 									<td><%=list.get(i).getMemberName() %></td>
 									<td><%=list.get(i).getRegDate().format(dtf) %></td>
 								</tr>
-							<% } %>
+							<% } %> --%>
+							
+							<c:forEach var="list3" items="${ResultOfList}" varStatus="vs">
+								<tr data-board-no="${list3.boardNo }">
+									<td>${(paging.nowPage-1) * paging.numPerPage + (vs.index+1)}</td>
+									<td>${list3.boardTitle}</td>
+									<td>${list3.memberName}</td>
+									<td>${list3.regDate}</td>
+								</tr>
+							</c:forEach>
+							
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</section>	
-	<%if(paging != null){ %>
+	<%-- <%if(paging != null){ %> --%>
+	<c:if test="${not empty paging}">
 		<div class="center">
 			<div class="pagination">
-				<%if(paging.isPrev()){ %>
+				<%-- <%if(paging.isPrev()){ %>
 					<!-- 이거 5번 페이지 가는 게 맞음? -->
-					<%-- <a href="/boardList?nowPage=<%=(paging.getPageBarStart() - 1)%>&board_title=<%=paging.getBoardTitle() == null ? "" : paging.getBoardTitle()%>">&laquo;</a> --%>
+					<a href="/boardList?nowPage=<%=(paging.getPageBarStart() - 1)%>&board_title=<%=paging.getBoardTitle() == null ? "" : paging.getBoardTitle()%>">&laquo;</a>
 					<a href="/boardList?nowPage=<%=(paging.getPageBarStart() - 1)%>&board_title=<%=paging.getBoardTitle()%>">&laquo;</a>
-					<%-- <a href="/boardList?nowPage=<%=(paging.getPageBarStart() - 1)%>">&laquo;</a> --%>
-				<%} %>
+					<a href="/boardList?nowPage=<%=(paging.getPageBarStart() - 1)%>">&laquo;</a>
+				<%} %> --%>
+				<c:if test="${paging.prev}">
+					<a href="/boardList?nowPage=${paging.pageBarStart - 1}&board_title=${paging.boardTitle}">&laquo;</a>
+				</c:if>
 				
 				
-				<%for(int i = paging.getPageBarStart(); i <= paging.getPageBarEnd(); i++ ) {%>
-					<%-- <a href="/boardList?nowPage=<%=i%>&board_title=<%=paging.getBoardTitle() == null ? "" : paging.getBoardTitle()%>"><%=i %></a> --%>
+				<%-- <%for(int i = paging.getPageBarStart(); i <= paging.getPageBarEnd(); i++ ) {%>
+					<a href="/boardList?nowPage=<%=i%>&board_title=<%=paging.getBoardTitle() == null ? "" : paging.getBoardTitle()%>"><%=i %></a>
 					<a href="/boardList?nowPage=<%=i%>&board_title=<%=paging.getBoardTitle()%>"><%=i %></a>
-				<% }%>
+				<% }%> --%>
+				<c:forEach begin="${paging.pageBarStart }" end="${paging.pageBarEnd }" varStatus="vs">
+					<a href="/boardList?nowPage=${vs.index }&board_title=${paging.boardTitle}">${vs.index }</a>
+				</c:forEach>
 				
 				
-				<%if(paging.isNext()){ %>
+				<%-- <%if(paging.isNext()){ %>
 					<!-- 이거 6번 페이지 가는 게 맞음? -->
-					<%-- <a href="/boardList?nowPage=<%=(paging.getPageBarEnd() + 1) %>&board_title=<%=paging.getBoardTitle() == null ? "" : paging.getBoardTitle()%>">&raquo;</a> --%>
+					<a href="/boardList?nowPage=<%=(paging.getPageBarEnd() + 1) %>&board_title=<%=paging.getBoardTitle() == null ? "" : paging.getBoardTitle()%>">&raquo;</a>
 					<a href="/boardList?nowPage=<%=(paging.getPageBarEnd() + 1) %>&board_title=<%=paging.getBoardTitle()%>">&raquo;</a>
-				<%} %>
+				<%} %> --%>
+				<c:if test="${paging.next }">
+					<a href="/boardList?nowPage=${paging.pageBarEnd + 1}&board_title=${paging.boardTitle}">&raquo;</a>
+				</c:if>
 			</div>
 		</div>
-	<%} %>
+	<%-- <%} %> --%>
+	</c:if>
+	
+	
+	
+	
 	<script>
 		$(function(){
 			$('.board_list tbody tr').click(function(){

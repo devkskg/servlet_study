@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html> 
 <head>
@@ -27,7 +28,9 @@ rel="stylesheet" type="text/css">
 					 -->	
 					<input type="text" name="board_title" placeholder="제목을 입력하세요."> <br>
 					<input type="text" name="board_content" placeholder="내용을 입력하세요."><br>
-					<input type="hidden" name="board_writer" value="<%=m.getMemberNo()%>">
+					<!-- 원래 쓰던 익스프레션태그를 JSTL 방법으로 바꿔보자 -->
+					<%-- <input type="hidden" name="board_writer" value="<%=m.getMemberNo()%>"> --%>
+					<input type="hidden" name="board_writer" value="<c:out value="${member.memberNo}"/>">
 					<!-- <input type="file" name="board_file"> --> <!-- 이게 원본 -->
 					<!-- 1번 -->
 					<input type="file" name="board_file" accept=".png, .jpg, .jpeg">

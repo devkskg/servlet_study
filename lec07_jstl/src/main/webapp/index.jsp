@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<!-- (1.2.5JSTL 코어 불러오는 방법! 버전 다르면 docs 보고 맞는 taglib 써야함!)
+ 라이브러리 안의 코드를 가지고 오는 방법 -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -120,5 +123,75 @@
 	<hr>
 	
 	<h1>JSTL</h1>
+	<h2>1. 변수</h2>
+	<!-- c:set은 단일태그, 일반태그 형식 둘 다 된다. -->
+	<c:set var="n1" value="15"/>
+	<c:set var="n2" value="20"/>
+	<c:set var="result" value="${n1+n2 }"/>
+	
+	<c:out value="${result }"/>
+	
+	<!-- c:set이 20> 이런 거면 c:set result 에서 합쳐질때부터 오류가 뜬다. -->
+	<!-- c:out을 쓰는 이유 : 특수문자를 자동으로 안전하게 문자열로 처리해준다. -->
+	<c:set var="hello" value="<b>strong</b>"/>
+	<c:out value="${hello }"/>
+	<!-- 문자열 막아주는 거 없애고 태그로서 쓰고싶다면! escapeXml / 사실 자주 쓰진 않는다. 알고만 있자.-->
+	<c:out value="${hello }" escapeXml="false"/>
+	
+	<h2>2. 조건문(if)</h2>
+	<c:if test="${num1 le num2}">
+		<p>num1이 num2보다 작거나 같다.</p>
+	</c:if>
+	
+	<h2>3. 조건문(choose)</h2>
+	<c:choose>
+		<c:when test="${num1 gt 20 }">
+			<p>num1이 20보다 크다!</p>
+		</c:when>
+		<c:when test="${num1 ge 10 }">
+			<p>num1이 10보다 크거나 같다!</p>
+		</c:when>
+		<c:otherwise>
+			<p>num1이 10보다 작다!</p>
+		</c:otherwise>
+	</c:choose>
+	
+	<h2>4. 반복문(forEach)</h2>
+	<c:forEach var="i" begin="1" end="10" step="2">
+		<p>JSTL 사용 / 반복 숫자 : ${i }</p>
+	</c:forEach>
+	<% for(int i = 1; i <= 10; i=i+2) {%>
+		<p>예전 방식 / 반복 숫자 : <%=i %></p>
+	<%} %>
+	<%
+		String[] colors = {"red", "green", "blue"};
+		request.setAttribute("colors", colors);
+	%>
+	<ul>
+		<c:forEach var="color" items="${colors}">
+			<li style="color:${color}">${color}</li>		
+		</c:forEach>
+	</ul>
+	<%
+		String[] smaller = {"어디", "까지", "작아", "지는", "거에", "요?"};
+	%>
+	<%-- <c:forEach var="i" begin="1" end="6" items="${smaller}"> --%>
+	<c:forEach var="i" begin="1" end="6">
+		<h${i}>어디까지 작아지는 거에요?</h>
+		<%-- <h${i}>${smaller}</h> --%>
+	</c:forEach>
+	
+	<c:forEach var="num" begin="1" end="5" step="2" varStatus="vs159">
+		<%-- <p <c:if test="${vs159.first}"> style="color:red"</c:forEach>> --%>
+		<p>
+			인덱스(begin부터 인덱스 출력) : ${vs159.index }<br>
+			카운트(현재반복횟수) : ${vs159.count }<br>
+			첫번째인가요?(true/false) : ${vs159.first }<br>
+			마지막인가요?(true/false) : ${vs159.last }<br>
+		</p>
+	</c:forEach>
+	
+	
+	
 </body>
 </html>
