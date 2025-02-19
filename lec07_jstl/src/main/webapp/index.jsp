@@ -175,11 +175,13 @@
 	</ul>
 	<%
 		String[] smaller = {"어디", "까지", "작아", "지는", "거에", "요?"};
+		request.setAttribute("smaller", smaller);
 	%>
 	<%-- <c:forEach var="i" begin="1" end="6" items="${smaller}"> --%>
-	<c:forEach var="i" begin="1" end="6">
-		<h${i}>어디까지 작아지는 거에요?</h>
-		<%-- <h${i}>${smaller}</h> --%>
+	<c:forEach var="i" begin="0" end="7">
+	<!-- 인덱스가 설정된 값보다 초과하는데도 익셉션 안뜨네? -->
+		<%-- <h${i}>어디까지 작아지는 거에요?</h> --%>
+		<h${i+1}>${smaller[i]}</h>
 	</c:forEach>
 	
 	<c:forEach var="num" begin="1" end="5" step="2" varStatus="vs159">
