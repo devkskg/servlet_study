@@ -1,12 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 무슨 의도로 만들어진 파일입니다~ 라는 뜻 -->
 <!DOCTYPE configuration
 PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <!-- 환경설정 시작과 끝을 써주는 configuration -->
+<!-- 입력 순서가 매우 중요 태그 위에 마우스 호버하면 아래쪽에 순서 나온다. -->
 <configuration>
 	<!-- 하드코딩 말고 properties 쓰자 -->
 	<properties resource="driver.properties"/>
+	
+	<!-- 별칭 설정 -->
+	<typeAliases>
+		<typeAlias type="com.gn.board.vo.Board" alias="boardVo"/>
+	</typeAliases>
+	
 	<!-- 연결하는 DB 설정 시작 -->
 	<environments default="development">
 		<!-- 하나하나의 DB 설정 / id는 DB 안의 내용과 관련없이 key느낌인듯 -->
@@ -26,6 +34,9 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	</environments>
 	<!-- 쿼리문이 들어가있는 xml파일을 mapper라고 한다. 그것들을 모아둔 공간+태그 -->
 	<mappers>
+		<!-- SQL을 작성하는 xml 파일 -->
 		<mapper resource="/mappers/board-mapper.xml"/>
+		<!-- 추가하려면 아래처럼 하면 좋다. -->
+		<!-- <mapper resource="/mappers/member-mapper.xml"/> -->
 	</mappers>
 </configuration>

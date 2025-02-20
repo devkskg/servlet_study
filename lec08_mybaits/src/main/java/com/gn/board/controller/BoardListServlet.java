@@ -1,12 +1,17 @@
 package com.gn.board.controller;
 
 import java.io.IOException;
+import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.gn.board.service.BoardService;
+import com.gn.board.vo.Board;
 
 @WebServlet("/boardList")
 public class BoardListServlet extends HttpServlet {
@@ -17,12 +22,20 @@ public class BoardListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// List<Board> = new BoardService().selectBoardList();
+		List<Board> resultList = new BoardService().selectBoardList();
+//		System.out.println(resultList);
 		// 이제 위같은 구식 안 쓴다.
 		
+		// SqlSessionTemplate 참고
 		// jdbc를 쉽게 쓰도록 *도와주는* FrameWork
 		// MyBatis 공장 가동 준비 해보자. 원자재(jar)필요!
 		// src/main/resources 소스폴더 생성!
+		// SqlSessionTemplate 참고
+		
+		
+		request.setAttribute("resultList", resultList);
+		RequestDispatcher view = request.getRequestDispatcher("/views/board/list.jsp");
+		view.forward(request, response);
 		
 		
 	}

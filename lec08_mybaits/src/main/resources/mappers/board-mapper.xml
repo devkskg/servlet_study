@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 무슨 의도로 만들어진 파일입니다~ 라는 뜻 -->
+<!-- 
+	1. jar
+	2. mybatis config 만들기 - properties 바깥에 만들고 안쪽에 불러서 쓴다.
+	3. mapper 만들기
+	4. sessionTemplate 만들기.
+ -->
+<!DOCTYPE mapper PUBLIC
+"-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="boardMapper">
+	<!-- 줄 바꾸기 띄어쓰기 mybatis가 알아서 해결해줌 -->
+	<!-- vo는 카멜케이스, DB는 _가 있어서 그거 호환 해주기 -->
+	<!-- <resultMap type="com.gn.board.vo.Board" id="boardMap"> -->
+	<!-- 별칭 설정 -->
+	<resultMap type="boardVo" id="boardMap">
+		<!-- 컬럼명과 필드명을 1대1로 써준다. -->
+		<result property="boardNo" column="board_no"/>
+		<result property="boardTitle" column="board_title"/>
+		<result property="boardContent" column="board_content"/>
+		<result property="boardWriter" column="board_writer"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="modDate" column="mod_date"/>
+	</resultMap>
+	<!-- 속성으로 위에 있는 resultMap="위에 쓴 아이디" -->
+	<!-- 이거까지 해줘야 컬럼명, 필드명 호환된다. -->
+	<!-- <select id="boardList" resultType="com.gn.board.vo.Board" resultMap="boardMap"> -->
+	<!-- 별칭 설정 -->
+	<select id="boardList" resultType="boardVo" resultMap="boardMap">
+		SELECT * FROM `board`
+	</select>
+	
+</mapper>
