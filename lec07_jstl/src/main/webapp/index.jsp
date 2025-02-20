@@ -3,6 +3,8 @@
 <!-- (1.2.5JSTL 코어 불러오는 방법! 버전 다르면 docs 보고 맞는 taglib 써야함!)
  라이브러리 안의 코드를 가지고 오는 방법 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -193,8 +195,54 @@
 			마지막인가요?(true/false) : ${vs159.last }<br>
 		</p>
 	</c:forEach>
+	<hr>
+	<h1>JSTL Formatting Library</h1>
+	<h2>1. formatNumber</h2>
+	<fmt:formatNumber type="number" value="1000.156"/><br>
+	<fmt:formatNumber type="number">1000.156</fmt:formatNumber><br>
+	<fmt:formatNumber type="currency" value="1000.156"/><br>
+	<fmt:formatNumber type="currency">1000.156</fmt:formatNumber><br>
+	
+	<!-- 지역 세팅 -> 앞의 통화기호 및 소수점 단위도 달라짐 -->
+	<fmt:setLocale value="en_US"/>
+	<fmt:formatNumber type="currency" value="1000.156"/><br>
+	<fmt:formatNumber type="currency">1000.156</fmt:formatNumber><br>
+	
+	<fmt:formatNumber maxFractionDigits="5" type="percent" value="0.8759598498498"/>
+	<fmt:formatNumber maxIntegerDigits="1" type="percent" value="0.8759598498498"/>
+	<br><br><br>
+	<fmt:formatNumber pattern="#,###.##" value="1234.567"/><br>
+	<fmt:formatNumber pattern="00000.00" value="1234.5"/><br>
+	<fmt:formatNumber pattern="0.0" value="1234.5"/>
+	
+	<h2>2. formatDate</h2>
+	<c:set var="now" value="<%=new java.util.Date() %>"/>
+	<fmt:formatDate value="${now }" type="date"/><br>
+	<fmt:formatDate value="${now }" pattern="yy년MM월dd일 HH:mm"/><br>
+	
+	<!-- ParseDate, 얘는 출력X 세팅만 하는 애다. -->
+	<fmt:parseDate value="2025-02-20" pattern="yyyy-MM-dd" var="parseDate"/>
+	<fmt:formatDate value="${parseDate }" pattern="yy년MM월dd일이다~"/>
 	
 	
+	<h1>JSTL Function Library</h1>
+	<c:out value="${fn:contains('abc', 'c') }"/>
+	<c:if test="${fn:contains('abc', 'c') }">
+		<p>abc에 c가 있나요? 네~</p>
+	</c:if>
+	<c:set var="data" value="Hello~ i am fine!"/>
+	<p>
+		<c:out value="${fn:toUpperCase(data) }"/>
+	</p>
+	<p>
+		<c:out value="${fn:replace(data, 'fine', 'apple') }"/>
+	</p>
+	<p>
+		<c:out value="${fn:contains(data, 'fine') ? 'O' : 'X' }"></c:out>
+	</p>
+	<p>
+		<c:out value="${fn:substring(data, 2, 4)}"></c:out>
+	</p>
 	
 </body>
 </html>
