@@ -34,16 +34,22 @@
 			<a>수정</a>
 		</li>
 		<li>삭제</li>
-		<li>등록</li>
+		<li>
+			<form action="<c:url value='/boardCreate'/>" method="post">
+				<fieldset>
+					<legend>게시글</legend>
+					<input type="text" name="board_title" placeholder="제목"><br>
+					<input type="text" name="board_content" placeholder="내용"><br>
+					<input type="number" name="board_writer" placeholder="회원번호"><br>
+					<input type="submit" value="등록">
+				</fieldset>
+			</form>
+		</li>
+		<li>
+			<a href="<c:url value='/boardManyInsert'/>">
+				여러개 한번에 insert하기
+			</a>
+		</li>
 	</ol>
-		<form action="<c:url value='/boardCreate'/>" method="post">
-			<fieldset>
-				<legend>게시글</legend>
-				<input type="text" name="board_title" placeholder="제목"><br>
-				<input type="text" name="board_content" placeholder="내용"><br>
-				<input type="number" name="board_writer" placeholder="회원번호"><br>
-				<input type="submit" value="등록">
-			</fieldset>
-		</form>
 </body>
 </html>

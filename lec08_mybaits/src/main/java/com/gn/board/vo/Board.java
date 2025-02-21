@@ -3,6 +3,7 @@ package com.gn.board.vo;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -17,6 +18,8 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
+@Builder
+// Builder = 매개변수 생성자를 입맛대로 조정 가능하다.
 // toString 내용 바꾸고싶을때는 어케함?
 // 이거할때 outline 꼭 확인해봐야댐!!!
 // 이거할때 outline 꼭 확인해봐야댐!!!
@@ -29,6 +32,8 @@ public class Board {
 	private int boardWriter;
 	private LocalDateTime regDate;
 	private LocalDateTime modDate;
+	private String memberName;
+	private String orderType;
 	
 	
 	

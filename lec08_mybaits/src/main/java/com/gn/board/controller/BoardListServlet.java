@@ -22,7 +22,24 @@ public class BoardListServlet extends HttpServlet {
     }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<Board> resultList = new BoardService().selectBoardList();
+		String boardTitle = request.getParameter("board_title");
+		String boardContent = request.getParameter("board_content");
+		String memberName = request.getParameter("member_name");
+		
+		String orderType = request.getParameter("order_type");
+		// Lombok이 가지고 있는 기능! Builder
+		Board option = Board.builder()
+				.boardTitle(boardTitle)
+				.boardContent(boardContent)
+				.memberName(memberName)
+				.orderType(orderType)
+				.build();
+		
+		
+		
+		
+		List<Board> resultList = new BoardService().selectBoardList(option);
+		System.out.println(resultList);
 //		System.out.println(resultList);
 		// 이제 위같은 구식 안 쓴다.
 		
@@ -31,8 +48,6 @@ public class BoardListServlet extends HttpServlet {
 		// MyBatis 공장 가동 준비 해보자. 원자재(jar)필요!
 		// src/main/resources 소스폴더 생성!
 		// SqlSessionTemplate 참고
-		
-		
 		request.setAttribute("resultList", resultList);
 		RequestDispatcher view = request.getRequestDispatcher("/views/board/list.jsp");
 		view.forward(request, response);

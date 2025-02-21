@@ -31,16 +31,44 @@
 	<!-- <select id="boardList" resultType="com.gn.board.vo.Board" resultMap="boardMap"> -->
 	<!-- 별칭 설정 -->
 	<!-- 반환 받는 애가 List처럼 여러개 필요할 경우 resultType으로 vo 써줘야한다. -->
-	<select id="boardList" resultType="boardVo" resultMap="boardMap">
-		SELECT * 
-		FROM `board`
+	<!-- <select id="boardList" resultType="boardVo" resultMap="boardMap"> -->
+	<select id="boardList" resultMap="boardMap" parameterType="boardVo">
+		SELECT b.* ,m.member_name 
+		FROM `board` b
+		JOIN `member` m ON b.board_writer = m.member_no
+		<where>
+			<if test='boardTitle != null and boardTitle.equals("") == false'>
+				AND b.board_title LIKE CONCAT('%',#{boardTitle},'%')
+			</if>
+			<if test='boardContent != null and boardContent.equals("") == false'>
+				AND b.board_content LIKE CONCAT('%',#{boardContent},'%')
+			</if>
+			<if test='memberName != null and memberName.equals("") == false'>
+				AND m.member_name LIKE CONCAT('%',#{memberName},'%')
+			</if>
+		</where>
+		<if test='orderType != null and orderType.equals("-1") == false'>
+			<choose>
+				<when test='orderType.equals("1")'>
+					ORDER BY b.reg_date DESC
+				</when>
+				<otherwise>
+					ORDER BY b.reg_date ASC
+				</otherwise>
+			</choose>
+		</if>
 	</select>
 	<!-- #{}가 jdbc에서 ? 느낌이다. 보통 #{} 안에는 dao에서 썼던 매개변수를 쓴다.(아무렇게나 써도 괜찮긴함. 그런데 여러개 보낼때는 다른 형식있나봄) -->
 	<!-- resultType 없어도 괜찮네? 왜????? -->
 	<select id="boardOne" resultMap="boardMap" parameterType="_int">
 		SELECT * 
 		FROM `board` 
-		WHERE board_no = #{ㅏㅣㄴ루퓨ㅐ9ㅑㅈ구허락퍄ㅕ 너ㅏㅗㅠㅍ23ㅓㄹ퍼ㅜㅑㅈㄷ}
+		<!-- WHERE board_no = #{ㅏㅣㄴ루퓨ㅐ9ㅑㅈ구허락퍄ㅕ 너ㅏㅗㅠㅍ23ㅓㄹ퍼ㅜㅑㅈㄷ} -->
+		<!-- where절 사용방법! 태그 안에 넣기 끝! where 쓰면 좋은 점. 조건식이 같이 오면 AND를 알아서 더하거나 빼줌 -->
+		<where>
+			board_no = #{boardNo}
+			
+		</where>
 	</select>
 	<!-- Map 형식으로 받아와서 parameterType="map"으로 설정해주고 안에서 가져와 쓸때는 #{맵의 키 이름 쓰기} -->
 	<select id="boardTwo" resultMap="boardMap" parameterType="map">
@@ -68,8 +96,17 @@
 	</delete>
 	<!-- useGeneratedKeys=true, keyProperty= PK값이 들어갈 수 있는 필드로! -->
 	<insert id="boardInsert" parameterType="boardVo" useGeneratedKeys="true" keyProperty="boardNo">
-		INSERT INTO `board`(board_title ,board_content, board_writer)
+		INSERT INTO `board`(board_title ,board_content ,board_writer)
 		VALUES(#{boardTitle} ,#{boardContent} ,#{boardWriter})
+	</insert>
+		<!-- 이걸 반복문으로 돌려버리자! -->
+		<!-- VALUES(#{boardTitle} ,#{boardContent} ,#{boardWriter}) -->
+	<insert id="insertMany" parameterType="list">
+		INSERT INTO `board`(board_title ,board_content ,board_writer)
+		VALUES
+		<foreach collection="list" item="bd" separator=",">
+			(#{bd.boardTitle} ,#{bd.boardContent} ,#{bd.boardWriter})
+		</foreach>
 	</insert>
 	
 </mapper>

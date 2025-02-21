@@ -10,10 +10,10 @@ import com.gn.board.dao.BoardDao;
 import com.gn.board.vo.Board;
 
 public class BoardService {
-	public List<Board> selectBoardList(){
+	public List<Board> selectBoardList(Board option){
 		// SqlSession은 커넥션과 같은 역할. 데이터베이스에 연결하는 역할
 		SqlSession session = getSqlSession();
-		List<Board> resultList = new BoardDao().selectBoardList(session);
+		List<Board> resultList = new BoardDao().selectBoardList(session, option);
 		session.close();
 		return resultList;
 	}
@@ -66,6 +66,18 @@ public class BoardService {
 	public int insertBoard(Board b) {
 		SqlSession session = getSqlSession();
 		int result = new BoardDao().insertBoard(session, b);
+		if(result > 0) {
+			session.commit();
+		} else {
+			session.rollback();
+		}
+		session.close();
+		return result;
+	}
+
+	public int insertMany(List<Board> list) {
+		SqlSession session = getSqlSession();
+		int result = new BoardDao().insertMany(session, list);
 		if(result > 0) {
 			session.commit();
 		} else {
