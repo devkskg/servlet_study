@@ -15,7 +15,10 @@
 	<!-- <resultMap type="com.gn.board.vo.Board" id="boardMap"> -->
 	<!-- 별칭 설정 -->
 	<resultMap type="boardVo" id="boardMap">
-		<!-- 컬럼명과 필드명을 1대1로 써준다. -->
+		<!-- 
+			컬럼명과 필드명을 1대1로 써준다.
+		 	vo의 필드명과 테이블의 컬럼명이 다르기 때문에 맞춰즌 것!
+		 -->
 		<result property="boardNo" column="board_no"/>
 		<result property="boardTitle" column="board_title"/>
 		<result property="boardContent" column="board_content"/>
@@ -27,8 +30,46 @@
 	<!-- 이거까지 해줘야 컬럼명, 필드명 호환된다. -->
 	<!-- <select id="boardList" resultType="com.gn.board.vo.Board" resultMap="boardMap"> -->
 	<!-- 별칭 설정 -->
+	<!-- 반환 받는 애가 List처럼 여러개 필요할 경우 resultType으로 vo 써줘야한다. -->
 	<select id="boardList" resultType="boardVo" resultMap="boardMap">
-		SELECT * FROM `board`
+		SELECT * 
+		FROM `board`
 	</select>
+	<!-- #{}가 jdbc에서 ? 느낌이다. 보통 #{} 안에는 dao에서 썼던 매개변수를 쓴다.(아무렇게나 써도 괜찮긴함. 그런데 여러개 보낼때는 다른 형식있나봄) -->
+	<!-- resultType 없어도 괜찮네? 왜????? -->
+	<select id="boardOne" resultMap="boardMap" parameterType="_int">
+		SELECT * 
+		FROM `board` 
+		WHERE board_no = #{ㅏㅣㄴ루퓨ㅐ9ㅑㅈ구허락퍄ㅕ 너ㅏㅗㅠㅍ23ㅓㄹ퍼ㅜㅑㅈㄷ}
+	</select>
+	<!-- Map 형식으로 받아와서 parameterType="map"으로 설정해주고 안에서 가져와 쓸때는 #{맵의 키 이름 쓰기} -->
+	<select id="boardTwo" resultMap="boardMap" parameterType="map">
+		SELECT * 
+		FROM `board` 
+		WHERE board_title = #{board_title} 
+		and board_content = #{board_content}
+	</select>
+	<!-- Board vo를 받아와서 조회 해보기 parameterType="패키지명부터 써거나 별칭 쓰기" 안에서 가져와 쓸때는 #{필드명} -->
+	<select id="boardThree" resultMap="boardMap" parameterType="boardVo">
+		SELECT * 
+		FROM `board` 
+		WHERE board_title = #{boardTitle} 
+		and board_content = #{boardContent}
+	</select>
+	<update id="boardUpdate" parameterType="boardVo">
+		UPDATE `board`
+		SET board_title = #{boardTitle}
+		,board_content = #{boardContent}
+		WHERE board_no = #{boardNo}
+	</update>
+	<delete id="boardDelete" parameterType="_int">
+		DELETE FROM `board`
+		WHERE board_no = #{boardNo}
+	</delete>
+	<!-- useGeneratedKeys=true, keyProperty= PK값이 들어갈 수 있는 필드로! -->
+	<insert id="boardInsert" parameterType="boardVo" useGeneratedKeys="true" keyProperty="boardNo">
+		INSERT INTO `board`(board_title ,board_content, board_writer)
+		VALUES(#{boardTitle} ,#{boardContent} ,#{boardWriter})
+	</insert>
 	
 </mapper>
