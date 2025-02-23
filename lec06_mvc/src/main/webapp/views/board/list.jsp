@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import = "com.gn.board.vo.Board, java.util.*, java.time.format.*" %>
+<%@ page import = "com.gn.board.vo.Board, java.util.*, java.time.format.*"%>
 <%-- <%@ page import = "java.util.*" %> --%>
 <% 
 	List<Board> list = (List<Board>)request.getAttribute("ResultOfList"); 
