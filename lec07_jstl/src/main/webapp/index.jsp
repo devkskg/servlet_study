@@ -19,7 +19,7 @@
 	<%
 		// 일부러 key값 똑같이 설정해서 EL 범위 테스트 해보자
 		// 1. pageScope 설정
-		pageContext.setAttribute("test", "페이지 범위");
+		// pageContext.setAttribute("test", "페이지 범위");
 		// 2. requestScope 설정
 		request.setAttribute("test", "리퀘스트 범위");
 		// 3. sessionScope 설정
