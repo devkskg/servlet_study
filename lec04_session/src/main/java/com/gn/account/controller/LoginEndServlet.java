@@ -94,7 +94,7 @@ public class LoginEndServlet extends HttpServlet {
 			response.sendRedirect("/");
 //			System.out.println(account);
 		} else {
-//		2-2. X
+//		2-2. 없으면X
 //				-> 로그인 페이지 다시 요청
 //			System.out.println("로그인 실패");
 			response.sendRedirect("/login");
